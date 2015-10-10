@@ -1,4 +1,4 @@
-FROM docker pull maxexcloo/nginx-php
+FROM maxexcloo/nginx-php
 
 COPY . /app
 WORKDIR /app
