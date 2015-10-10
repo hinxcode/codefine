@@ -1,0 +1,181 @@
+html {
+	font-family: 微軟正黑體;
+}
+body {
+	margin: 0;
+	width: 100%;
+	min-height: 600px;
+	background-image: url("../images/overlay.png"), url("../images/bg.jpg");	
+	background-repeat: repeat, no-repeat;
+	background-size: auto, 100% 100%;
+	overflow-x: hidden;
+}
+.dropArea {
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+	overflow: hidden;
+}
+.dropArea .anim_mask {
+	position: absolute;
+	opacity: 0;
+	background-color: #FFF;
+	z-index: 3;
+}
+.anim_frame {
+	position: absolute;
+	opacity: 0;
+	background-color: #FFF;
+	border-radius: 50%;
+	box-shadow: inset 0 0 200px rgb(240, 240, 255), 0 0 50px #666;
+	z-index: 5;
+	padding-left: 10px;
+}
+.anim_frame .anim_content {
+	position: relative;
+	top: 50%;
+	left: 50%;
+	text-align: center;
+}
+.anim_content .ic_uploadcode {
+	position: relative;
+	top: 0%;
+	left: -10%;
+}
+.dropArea .anim_mask, .dropArea .anim_frame {
+	pointer-events: none;
+}
+
+.circle {	
+	display: none;
+	position: absolute;
+	text-align: center;
+	z-index: 10;
+	cursor: default;
+}
+.circle canvas {
+	vertical-align: top;
+	background-color: #FFF;
+	border-radius: 50%;
+	border: 3px solid #FFF;
+	box-shadow: inset 0 0 100px rgb(240, 240, 255), 0 0 50px #666;
+}
+.circle strong {
+	position: absolute;
+	top: 80px;
+	left: 0;
+	width: 100%;
+	text-align: center;			
+	font-size: 50pt;
+	padding-left: 10px;
+	color: #2F5A99;
+}
+.circle strong i {
+	font-style: normal;
+	font-weight: normal;
+	font-size: 15pt;
+}
+.circle .filedisplay {
+	position: absolute;
+	top: 280px;
+	width: 100%;
+	max-height: 100px;	
+	text-align: center;
+	padding: 10px 5px;
+	background-color: rgba(255, 255, 255, 0.3);
+	box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+	color: #222;
+	font-size: 20pt;
+	white-space: nowrap;
+    overflow-x: hidden;
+	overflow-y: auto;
+    text-overflow: ellipsis;
+	line-height: 40px;
+}
+
+.content .ic_logo {
+	margin-left: 10%;
+	margin-top: 3%;
+	z-index: 2;
+	position: relative;
+}
+.cloud_block {
+	width: 100%;
+	text-align: center;
+	position: absolute;
+	margin-top: -5%;
+}
+.cloud_block .ic_cloud {
+	cursor: pointer;
+	width: 300px;
+	display: inline-block;
+}
+.content .slogan {
+	font-size: 20pt;
+	width: 100%;
+	text-align: center;
+	margin-top: 180px;
+	position: absolute;
+	color: #EEE;
+	cursor: default;
+}
+.content .copyright {
+	font-size: 10pt;
+	text-align: center;
+	margin-top: 400px;
+	color: #FFF;
+	opacity: 0.5;
+	cursor: default;
+}
+
+.circle svg {
+	position: absolute;
+	top: 50%;
+	margin-top: -90px;
+	left: 30px;
+	pointer-events: none;
+}
+.checkmark {
+	stroke: #0681c4;
+	stroke-dashoffset: 400;
+	stroke-dasharray: 400;
+	animation: checkdash 0.5s ease-in forwards 1;
+	display: none;
+}
+.crossmark1 {
+	stroke-dasharray: 1000;
+	stroke-dashoffset: 1000;
+	animation: crossdash 0.9s linear alternate forwards;
+	display: none;
+}
+.crossmark2 {
+	stroke-dasharray: 1000;
+	stroke-dashoffset: 1000;
+	animation: crossdash 0.9s linear alternate forwards; 
+	display: none;
+	animation-delay: 0.2s;
+}
+.analysis_block {
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	display: none;
+}
+@keyframes checkdash {
+	0% {
+		stroke-dashoffset: 400;
+	}
+	100% {
+		stroke-dashoffset: 0;
+	}
+}
+
+@keyframes crossdash {
+	0% {
+		stroke-dashoffset: 1000;
+	}
+	100% {
+		stroke-dashoffset: 0;
+	}
+}

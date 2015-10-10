@@ -1,0 +1,14 @@
+文字上傳
+http://fb.alptw.com/fileUpload/
+
+框內上傳
+http://www.dotblogs.com.tw/regionbbs/archive/2012/06/28/html5.file.api.aspx
+
+拖曳上傳
+http://xyz.cinc.biz/2013/03/html5.html
+
+照片上傳
+http://tech.mozilla.com.tw/posts/3738/%E7%80%8F%E8%A6%BD%E5%99%A8%E7%9A%84%E9%A0%90%E8%A8%AD-file-input-%E4%B8%8D%E5%A5%BD%E7%94%A8%EF%BC%81%E6%88%91%E6%83%B3%E8%87%AA%E8%A8%82%E7%BE%8E%E8%A7%80%E5%AF%A6%E7%94%A8%E7%9A%84%E7%85%A7
+
+結合後端上傳
+http://codex.wiki/post/195768-125/
