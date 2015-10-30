@@ -3,11 +3,11 @@
 	//          Web Config
 	//===============================
 		$glb["web"]["id"] = "codefine";
-		//$glb["web"]["url"] = "http://codefine-yuntech.rhcloud.com/";
-		$glb["web"]["url"] = "localhost/egood";
+		$glb["web"]["url"] = "http://codefine-yuntech.rhcloud.com/";
+		//$glb["web"]["url"] = "localhost/egood";
 		$glb["web"]["path"] = "http://".$glb["web"]["url"];
-		//$glb["web"]["file"] = "/home/codefine/public_html";
-		$glb["web"]["file"] = "C:/xampp/htdocs/ajax";
+		$glb["web"]["file"] = "/home/codefine/public_html";
+		//$glb["web"]["file"] = "C:/xampp/htdocs/ajax";
 
 	//===============================
 	//           Database

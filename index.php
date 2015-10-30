@@ -159,9 +159,7 @@
 			$("body").height($(window).height());
 			animInit();	
 		});
-		
-		
-		
+
 		//upload file by ajax
 		function ajaxupload(form) {
 			var deferred = $.Deferred();
@@ -184,7 +182,8 @@
 						
 			var formData = new FormData(form);
 			var xhr = new XMLHttpRequest();
-			xhr.open('POST', 'http://codefine-yuntech.rhcloud.com/uploader.php', true);
+			//xhr.open('POST', 'http://codefine-yuntech.rhcloud.com/uploader.php', true);
+			xhr.open('POST', 'http://hinx-codefine.daoapp.io/uploader.php', true);
 			//xhr.open('POST', 'http://localhost/ajax/uploader.php', true);
 			xhr.setRequestHeader('Cache-Control', 'no-cache');
 			xhr.onload = function() {
@@ -207,10 +206,10 @@
 								hasDropped = false;
 								//$("#javafile").prop("files", null);
 								$("#javafile").val(null);
-								
-								
-								
 								//跑內頁
+								
+
+
 								//$(".analysis_block").css("display", "block");
 								$(".analysis_block").fadeIn();
 								
@@ -224,10 +223,6 @@
 								}, 300, function(){
 									$(this).hide();
 								})
-								
-								
-																
-							   
 							});
 						});
 					} else { // success == false
