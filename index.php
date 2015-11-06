@@ -1,5 +1,5 @@
 <?php
-	echo shell_exec("java -version");
+	echo shell_exec("ls");
 ?>
 <!DOCTYPE html>
 <html>
