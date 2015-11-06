@@ -1,5 +1,8 @@
 <?php
+	echo "test";
 	echo shell_exec("ls");
+	echo system("ls");
+	echo exec("ls");
 ?>
 <!DOCTYPE html>
 <html>
