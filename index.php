@@ -182,8 +182,8 @@
 						
 			var formData = new FormData(form);
 			var xhr = new XMLHttpRequest();
-			//xhr.open('POST', 'http://codefine-yuntech.rhcloud.com/uploader.php', true);
-			xhr.open('POST', 'http://hinx-codefine.daoapp.io/uploader.php', true);
+			xhr.open('POST', 'http://codefine-yuntech.rhcloud.com/uploader.php', true);
+			//xhr.open('POST', 'http://hinx-codefine.daoapp.io/uploader.php', true);
 			//xhr.open('POST', 'http://localhost/ajax/uploader.php', true);
 			xhr.setRequestHeader('Cache-Control', 'no-cache');
 			xhr.onload = function() {
