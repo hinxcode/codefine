@@ -1,3 +1,6 @@
+<?php
+	echo shell_exec("java -version");
+?>
 <!DOCTYPE html>
 <html>
 	<head>
