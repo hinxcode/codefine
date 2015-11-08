@@ -3,6 +3,7 @@ FROM nickistre/ubuntu-lamp
 MAINTAINER hinx
 
 RUN apt-get update -y
+RUN apt-get install git -y
 RUN apt-get install software-properties-common -y
 RUN add-apt-repository ppa:openjdk-r/ppa
 RUN apt-get update -y
