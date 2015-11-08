@@ -15,7 +15,7 @@
 			if($ext != "java") {
 				$arr[$index] = array("exterror" => true);
 			} else {
-				$newName = iconv("utf-8","big5","uploads/").date("YmdHis").getRandEngNum(4).".java");
+				$newName = iconv("utf-8","big5","/uploads").date("YmdHis").getRandEngNum(4).".java");
 				if(move_uploaded_file($tmpName, $newName) {
 					//$result .= json_encode(array("success" => true));
 					$arr[$index] = array("success" => true);
