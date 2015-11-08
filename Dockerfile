@@ -1,4 +1,17 @@
-FROM tutum/lamp:latest
-RUN rm -fr /app && git clone https://github.com/hinxcode/codefine.git /app
+FROM nickistre/ubuntu-lamp
+
+MAINTAINER hinx
+
+RUN apt-get update -y
+RUN apt-get install software-properties-common -y
+RUN add-apt-repository ppa:openjdk-r/ppa
+RUN apt-get update -y
+RUN apt-get upgrade -y
+RUN apt-get install -y openjdk-8-jre-headless
+
+#RUN rm -fr /var/www/html && git clone https://github.com/hinxcode/codefine.git /var/www/html
+RUN rm -fr /var/www/html
+
+COPY . /var/www/html
+
 EXPOSE 80 3306
-CMD ["/run.sh"]

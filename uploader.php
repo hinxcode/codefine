@@ -2,7 +2,6 @@
 	include_once("includes/basic.php");
 	
 	//header("Access-Control-Allow-Origin: http://localhost");
-	//header("Access-Control-Allow-Origin: http://127.0.0.1");
 	header("Access-Control-Allow-Origin: *");
 	header("Access-Control-Allow-Methods: POST");
 	header("Access-Control-Allow-Headers: Cache-Control, X-Requested-With, Content-Type, Accept");
