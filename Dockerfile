@@ -13,6 +13,7 @@ RUN apt-get install git -y
 # RUN rm -fr /var/www/html
 # COPY . /var/www/html
 
-RUN rm -fr /var/www/html && git clone https://github.com/hinxcode/codefine.git /var/www/html
+RUN rm -fr /var/www/html
+RUN git clone https://github.com/hinxcode/codefine.git /var/www/html
 
 EXPOSE 80
