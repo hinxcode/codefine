@@ -182,7 +182,7 @@
 						
 			var formData = new FormData(form);
 			var xhr = new XMLHttpRequest();
-			xhr.open('POST', '192.168.99.100uploader.php', true);
+			xhr.open('POST', 'uploader.php', true);
 			xhr.setRequestHeader('Cache-Control', 'no-cache');
 			xhr.onload = function() {
 
