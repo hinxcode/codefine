@@ -182,10 +182,11 @@
 						
 			var formData = new FormData(form);
 			var xhr = new XMLHttpRequest();
-			xhr.open('POST', 'http://hinx-codefine.daoapp.io/uploader.php', true);
-			//xhr.open('POST', 'http://192.168.99.100/uploader.php', true);
+			//xhr.open('POST', 'http://hinx-codefine.daoapp.io/uploader.php', true);
+			xhr.open('POST', 'uploader.php', true);
 			xhr.setRequestHeader('Cache-Control', 'no-cache');
 			xhr.onload = function() {
+				alert(xhr.responseText);
 				if(xhr.status === 200) {
 					var res = JSON.parse(xhr.responseText);
 					
