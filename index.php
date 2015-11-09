@@ -182,12 +182,12 @@
 						
 			var formData = new FormData(form);
 			var xhr = new XMLHttpRequest();
-			//xhr.open('POST', 'http://hinx-codefine.daoapp.io/uploader.php', true);
-			xhr.open('POST', 'uploader.php', true);
+			xhr.open('POST', '192.168.99.100uploader.php', true);
 			xhr.setRequestHeader('Cache-Control', 'no-cache');
 			xhr.onload = function() {
-				alert(xhr.responseText);
+
 				if(xhr.status === 200) {
+
 					var res = JSON.parse(xhr.responseText);
 					
 					if(Boolean(res[0]["exterror"])) { 
@@ -208,8 +208,6 @@
 								$("#javafile").val(null);
 								//跑內頁
 								
-
-
 								//$(".analysis_block").css("display", "block");
 								$(".analysis_block").fadeIn();
 								
@@ -232,7 +230,7 @@
 						hasDropped = false;
 					}
 				} else {
-					alert("檔案上傳失敗：" + xhr.status);
+					alert("連線失敗：" + xhr.status);
 					$('.circle').remove();
 					hasDropped = false;
 				}
