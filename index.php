@@ -164,7 +164,7 @@
 			var deferred = $.Deferred();
 			
 			$(".dropArea").append('<div class="circle">' +
-				'<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="250" height="250">' +
+				'<svg version="1.1" xmlns="//www.w3.org/2000/svg" xmlns:xlink="//www.w3.org/1999/xlink" width="250" height="250">' +
 					'<path class="checkmark" fill="none" stroke-width="20" d="m17,83.53182c0,0 0.68744,0.44249 1.33906,0.57446c1.45706,0.29514 9.39214,6.43057 23.43348,22.40424c16.21688,18.44859 29.35876,34.70825 38.83261,47.10632c4.28115,5.60254 4.9703,8.17516 6.02575,7.46806c2.17587,-1.45766 2.20424,-5.37236 9.37339,-17.23401c11.31656,-18.72369 26.7757,-45.95977 44.18884,-75.25523c16.73299,-28.15118 26.78111,-45.95739 31.4678,-55.72334l1.33907,-2.87234"/>' +
 					'<line class="crossmark crossmark1" y2="175" x2="15" y1="15" x1="175" stroke-miterlimit="10" stroke-width="10" stroke="#2F5A99" fill="none"/> ' +
 					'<line class="crossmark crossmark2" y1="15" x1="15" y2="175" x2="175" stroke-miterlimit="10" stroke-width="10" stroke="#2F5A99" fill="none"/>' +
