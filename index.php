@@ -11,7 +11,7 @@
 	<body>
 		<div class="dropArea">
 			<div class="content">
-				<a href="index.html"><img width="200" class="ic_logo" src="images/ic_logo.png"></a>
+				<a href="index.php"><img width="200" class="ic_logo" src="images/ic_logo.png"></a>
 				<div class="cloud_block">
 					<div class="ic_cloud">
 						<img width="100%" src="images/ic_cloud.png">
@@ -68,7 +68,6 @@
 			</div>
 		</div>
 	</body>
-        
 	
 	<script>
 		// config and vars
@@ -179,21 +178,21 @@
 			$(".circle").css("height", circle_height);
 			$(".circle").css("left", $(".dropArea").offset().left + $(".dropArea").width() / 2 - circle_width / 2);
 			$(".circle").css("top", $(".dropArea").offset().top + $(".dropArea").height() / 2 - circle_height / 1.5);
-						
+			
 			var formData = new FormData(form);
-			var xhr = new XMLHttpRequest();
-			xhr.open('POST', 'uploader.php', true);
-			xhr.setRequestHeader('Cache-Control', 'no-cache');
-			xhr.onload = function() {
-
-				if(xhr.status === 200) {
-
-					var res = JSON.parse(xhr.responseText);
-					
+			$.ajax({
+				type: "POST",
+				cache: false,
+				contentType: false,
+				processData: false,
+				url: "uploader.php?callback=?",
+				dataType: "jsonp",
+				data: formData,
+				success: function(res) {							
 					if(Boolean(res[0]["exterror"])) { 
 						alert("上傳失敗！副檔名需為.java");
 						
-					} else if (Boolean(res[0]["success"])) { //先暫時只測第一個檔案，之後再加
+					} else if(Boolean(res[0]["success"])) { //先暫時只測第一個檔案，之後再加
 						$(".circle").css("display", "inline-block");	
 						deferred.done(function() {
 							$(".anim_mask").delay(600).animate({
@@ -224,40 +223,45 @@
 							});
 						});
 					} else { // success == false
-						alert("檔案上傳失敗！請重試");
+						alert("檔案上傳失敗！請重試" + res[0]["success"]);
 						animChecksvg(false);
 						$('.circle').remove();
 						hasDropped = false;
-					}
-				} else {
-					alert("連線失敗：" + xhr.status);
+					}					
+				},
+				error: function(xhr, status, err) {
+					alert("連線失敗：" + xhr.responseText);
 					$('.circle').remove();
 					hasDropped = false;
-				}
-			}
-			xhr.onprogress = function(event) {
-				if(event.lengthComputable) {
-					var percentComplete = (event.loaded / event.total) * 100;
-					$(".circle").circleProgress({
-						value: percentComplete,
-						size: circle_width,
-						startAngle: -Math.PI / 2,
-						fill: { gradient: ["#2F5A99", "#0681c4"], gradientAngle: 0 }
-					}).on("circle-animation-progress", function(event, progress) {
-						$(this).find('strong').html(parseInt(100 * progress) + "<i>%</i>");
-					}).on("circle-animation-end", function(event) {						
-						$(this).find('strong').animate({
-							opacity: 0
-						}, 500);
-						animChecksvg(true);
-						deferred.resolve();
-					});
-				}
-			}
-			xhr.onerror = function(event) {
-				alert("無法連接伺服器！");
-			}
-			xhr.send(formData);
+				},
+				xhr: function() {
+			        var xhr = $.ajaxSettings.xhr();
+			        xhr.upload.onprogress = function(event) {
+			        	var percentComplete = (event.loaded / event.total) * 100;
+						$(".circle").circleProgress({
+							value: percentComplete,
+							size: circle_width,
+							startAngle: -Math.PI / 2,
+							animation: {duration: 200, easing: "easeOutCirc"},
+							fill: { gradient: ["#2F5A99", "#0681c4"], gradientAngle: 0 }
+						}).on("circle-animation-progress", function(event, progress) {
+							$(this).find('strong').html(parseInt(100 * progress) + "<i>%</i>");
+						}).on("circle-animation-end", function(event) {
+			        		$(this).find('strong').animate({
+								opacity: 0
+							}, 300, function(){
+								animChecksvg(true);
+								deferred.resolve();
+							});
+						});
+			        };
+			        xhr.upload.onload = function() {
+
+			        };
+			        return xhr;
+			    }				
+			});
+
 			$(".filedisplay").text("");
 			for(i = 0; i < $("#javafile").prop("files").length; i++) {
 				$(".filedisplay").append($("#javafile").prop("files")[i]["name"] + "<br/>");
@@ -340,12 +344,9 @@
 		function animChecksvg(isSuccess) {
 			if(isSuccess) {
 				$(".checkmark").css("display", "block");
-				
 			} else {
 				$(".crossmark").css("display", "block");
 			}
-			
 		}
 	</script>
-    
 </html>
