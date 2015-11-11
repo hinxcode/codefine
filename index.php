@@ -77,8 +77,8 @@
 		var circle_width = 250;
 		var circle_height = 250;
 		var hasDropped = false;
-		var is_chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
-		if(!is_chrome) alert("很抱歉，目前只支援Chrome瀏覽器！");
+		//var is_chrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
+		//if(!is_chrome) alert("很抱歉，目前只支援Chrome瀏覽器！");
 		
 		//anim initialization
 		function animInit() {
