@@ -18,7 +18,8 @@
 				$newName = iconv("utf-8","big5","uploads/").date("YmdHis").getRandEngNum(4).".java";
 				
 				if(move_uploaded_file($tmpName, $newName)) {
-					$arr[$index] = array("success" => true, "exterror" => false);
+					$result = shell_exec("/usr/bin/java -jar launcher.jar " . $newName);
+					$arr[$index] = array("success" => true, "exterror" => false, "result" => $result);
 				} else {					
 					$arr[$index] = array("success" => false, "exterror" => false);
 				}

@@ -11,7 +11,7 @@
 	<body>
 		<div class="dropArea">
 			<div class="content">
-				<a href="index.php"><img width="200" class="ic_logo" src="images/ic_logo.png"></a>
+				<a href="/"><img width="200" class="ic_logo" src="images/ic_logo.png"></a>
 				<div class="cloud_block">
 					<div class="ic_cloud">
 						<img width="100%" src="images/ic_cloud.png">
@@ -20,43 +20,36 @@
 						</form>
 					</div>
 				</div>
-				<div class="slogan">點擊或拖曳至此就能立即分析！</div>
+				<div class="slogan">拖曳檔案至此馬上分析你的程式碼！</div>
 				
 				<div class="analysis_block">
-					<!-- chart -->
-					<article id="chart" class="panel">
-						<header>
-							<h2>圖表分析</h2> 
-							<p>Chart Analysis</p>
-						</header>
-						<p>...</p>
-					</article>
+					<div class="result_area">
+						<!-- chart -->
+						<div id="chart" class="panel">
+							<header>
+								<h2>圖表分析</h2>
+								<p>Chart Analysis</p>
+							</header>
+							<p>...</p>
+						</div>
 
-					<!-- report -->
-					<article id="report" class="panel">
-						<header>
-							<h2>數據分析</h2>
-							<p>Code Analysis</p>
-						</header>
-						<p>...</p>								
-					</article>
-						
-					<!-- diagram -->
-					<article id="diagram" class="panel">
-						<header>
-							<h2>類別圖</h2>
-							<p>Class Diagram</p>
-						</header>
-						<p>...</p>
-					</article>
+						<!-- report -->
+						<div id="report" class="panel">
+							<header>
+								<h2>數據分析</h2>
+								<p>Code Analysis</p>
+							</header>
+							<p>...</p>								
+						</div>
 
-					<!-- help -->
-					<article id="help" class="panel">
-						<header>
-							<h2>如何定義</h2>
-							<p>How to Define</p>
-						</header>
-					</article>
+						<!-- help -->
+						<div id="help" class="panel">
+							<header>
+								<h2>如何定義</h2>
+								<p>How to Define</p>
+							</header>
+						</div>
+					</div>
 				</div>
 				<div class="copyright">Codefine © 2015</div>
 			</div>
@@ -190,9 +183,11 @@
 				data: formData,
 				success: function(res) {							
 					if(Boolean(res[0]["exterror"])) { 
+
 						alert("上傳失敗！副檔名需為.java");
 						
 					} else if(Boolean(res[0]["success"])) { //先暫時只測第一個檔案，之後再加
+
 						$(".circle").css("display", "inline-block");	
 						deferred.done(function() {
 							$(".anim_mask").delay(600).animate({
@@ -206,7 +201,7 @@
 								//$("#javafile").prop("files", null);
 								$("#javafile").val(null);
 								//跑內頁
-								
+								$(".analysis_block").html(res[0]["result"]);
 								//$(".analysis_block").css("display", "block");
 								$(".analysis_block").fadeIn();
 								
@@ -255,9 +250,7 @@
 							});
 						});
 			        };
-			        xhr.upload.onload = function() {
-
-			        };
+			        // xhr.upload.onload = function() {};
 			        return xhr;
 			    }				
 			});
