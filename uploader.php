@@ -13,15 +13,15 @@
 			$exts = explode(".", $_FILES["javafiles"]["name"][$index]);
 			$ext = $exts[sizeof($exts) - 1];
 			if($ext != "java") {
-				$arr[$index] = array("success" => false, "exterror" => true);
+				$arr[$index] = array("success" => false, "exterror" => true, "filename" => $_FILES["javafiles"]["name"][$index]);
 			} else {
 				$newName = iconv("utf-8","big5","uploads/").date("YmdHis").getRandEngNum(4).".java";
 				
 				if(move_uploaded_file($tmpName, $newName)) {
 					$result = shell_exec("/usr/bin/java -jar launcher.jar " . $newName);
-					$arr[$index] = array("success" => true, "exterror" => false, "result" => $result);
+					$arr[$index] = array("success" => true, "exterror" => false, "result" => $result, "filename" => $_FILES["javafiles"]["name"][$index]);
 				} else {					
-					$arr[$index] = array("success" => false, "exterror" => false);
+					$arr[$index] = array("success" => false, "exterror" => false, "filename" => $_FILES["javafiles"]["name"][$index]);
 				}
 			}
 		}
