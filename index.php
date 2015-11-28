@@ -90,20 +90,20 @@
 							<p class="panel_subtitle">Metrics</p>
 							<div>
 								<h4>程式碼行數(Source Lines of Code)</h4>
-								<p>簡稱SLOC又稱LOC。此軟體度量藉由計算程式碼的行數來衡量電腦程式的大小。當一個程式被要求開發時，SLOC常用於預測其工作量；而程式開始生產時將會拿來測量其生產量及維護性。</p>
+								<p><br/>簡稱SLOC又稱LOC。此軟體度量藉由計算程式碼的行數來衡量電腦程式的大小。當一個程式被要求開發時，SLOC常用於預測其工作量；而程式開始生產時將會拿來測量其生產量及維護性。</p>
 								<p>以下片段程式碼為例：</p>
 								<p>
 									從以上程式碼將測出<br/>
 									1 Physical Line of Code (LOC)<br/>
 									2 Logical Lines of Code (LLOC)  (for statement and printf statement)<br/>
-									1 Comment Line<br/>
+									1 Comment Line<br/><br/>
 								</p>
 								<h4>註解密度(Density of Comments)</h4>
 								<p>輔以註解的說明可以讓別人對於程式的內容更有效的了解。程式註解密度(DC)為註解行數(CLOC)和全部行數(LOC)之比率，因此，註解密度DC = CLOC / LOC。註解密度的值介於0～1之間，可將此列為品質的指標，密度越接近1代表程式碼品質越好。</p>
 								<p>以下片段程式碼為例：</p>
 								<p>
 									以上程式碼LOC為12；CLOC(綠色字)為 4<br/>
-									DC = 4 / 12 ≒ 0.33<br/>
+									DC = 4 / 12 ≒ 0.33<br/><br/>
 								</p>
 
 								<h4>霍爾斯特德複雜度(Halstead Complexity)</h4>
@@ -121,7 +121,7 @@
 									容量（Volume）：V = N × log2 n<br/>
 									難度（Difficulty）：D = n1 / 2 x N2 / n2<br/>
 									精力（Effort）：E = D × V<br/>
-									程式撰寫時間：T = E / 18<br/>
+									程式撰寫時間：T = E / 18<br/><br/>
 								</p>
 								<h4>循環複雜度(Cyclomatic Complexity)</h4>
 								<p>又稱為迴圈複雜度或圈複雜度，主要是用來描述一個程式「條件分支」的複雜度，因為愈單純的 If-condition 愈容易讀懂，除錯時也較好發現問題，所以複雜度的數值，愈低愈好。因此當程式碼遇到以下保留字時，複雜度的值都會加一：「if、for、while、case、default、continue、&&、||、&、|」</p>
