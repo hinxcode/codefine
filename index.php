@@ -88,9 +88,9 @@
 						<div id="area_metrics" class="panel">
 							<p class="panel_title">度量指標</p>
 							<p class="panel_subtitle">Metrics</p>
-							<div>
+							<div><br/>
 								<h4>程式碼行數(Source Lines of Code)</h4>
-								<p><br/>簡稱SLOC又稱LOC。此軟體度量藉由計算程式碼的行數來衡量電腦程式的大小。當一個程式被要求開發時，SLOC常用於預測其工作量；而程式開始生產時將會拿來測量其生產量及維護性。</p>
+								<p>簡稱SLOC又稱LOC。此軟體度量藉由計算程式碼的行數來衡量電腦程式的大小。當一個程式被要求開發時，SLOC常用於預測其工作量；而程式開始生產時將會拿來測量其生產量及維護性。</p>
 								<p>以下片段程式碼為例：</p>
 								<p>
 									從以上程式碼將測出<br/>
