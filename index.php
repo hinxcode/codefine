@@ -205,6 +205,9 @@
 			if(data.level == 2) {
 
 			} else if(data.level == 3) {
+				$("#area_chart").append('<p class="panel_title">圖表分析</p><p class="panel_subtitle">Analysis Chart</p>');
+      			$("#area_chart").append('<div class="gaugeFrame"><div id="gaugeContainer"></div><div class="gaugeValue"></div></div>');
+				$("#area_chart").append('<div><h4>循環複雜度分級</h4><p><div class="green_block"></div>低風險</p><p><div class="yellow_block"></div>適當風險</p><p><div class="orange_block"></div>高風險</p><p><div class="red_block"></div>極度不穩定</p></div>');
 			    $('#gaugeContainer').jqxGauge({
 			        value: 0,
 			        max: 60,
@@ -386,9 +389,6 @@
 							          		collapseIcon: 'glyphicon glyphicon-chevron-down',
 							          		onNodeSelected: function(event, data) {
 							          			$("#area_chart").html("");
-							          			$("#area_chart").append('<p class="panel_title">圖表分析</p><p class="panel_subtitle">Analysis Chart</p>');
-							          			$("#area_chart").append('<div class="gaugeFrame"><div id="gaugeContainer"></div><div class="gaugeValue"></div></div>');
-												$("#area_chart").append('<div><h4>循環複雜度分級</h4><p><div class="green_block"></div>低風險</p><p><div class="yellow_block"></div>適當風險</p><p><div class="orange_block"></div>高風險</p><p><div class="red_block"></div>極度不穩定</p></div>');
 										    	updateResult(res, data);
 										    },
 										});
