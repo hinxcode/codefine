@@ -22,6 +22,7 @@
 					$arr[$index] = array("success" => true, "exterror" => false, "result" => $result, "filename" => $_FILES["javafiles"]["name"][$index]);
 				} else {					
 					$arr[$index] = array("success" => false, "exterror" => false, "filename" => $_FILES["javafiles"]["name"][$index]);
+
 				}
 			}
 		}

@@ -22,7 +22,7 @@
 		<script src="js/Chart.min.js"></script>
     	<script src="js/jQuerySimpleCounter.js"></script>
 
-    	<style type="text/css">
+    	<style type="text/css">-
 	    	#gaugeContainer {
 	    		margin: 0 auto;
 	    	}
@@ -32,7 +32,7 @@
 	        .gaugeValue {
 		        position: absolute;
 		        top: 65%;
-		        left: 39%;
+		        left: 35.3%;
 		        text-align: center;
 		        font-weight: bold;
 		        font-size: 16pt;
@@ -219,10 +219,10 @@
 				margin-bottom: 10px;
 		    }
 		    .fullBrick_right .fullBrick_sug {
-		    	font-size: 13pt;
+		    	font-size: 12pt;
 				color: #2C69A0;
-				margin-top: 0px;
-				margin-bottom: 0px;
+				margin-top: 3px;
+				margin-bottom: 3px;
 		    }
 		    .gauge_brick {
 		    	width: 400px;
@@ -262,6 +262,9 @@
 		    .jqx-chart-title-text {
 		    	font-size: 16pt;
 		    	fill: rgba(44, 83, 138, 0.9);
+		    }
+		    .jqx-chart-legend-text {
+		    	font-size: 13pt;
 		    }
 		    .clean {
 		    	clear: both;
@@ -346,12 +349,6 @@
 			$(".tree_area").height($(window).height() * 0.7);
 			animInit();
 
-			//$(".analysis_block").fadeIn();
-			//$(".bar_btn").first().trigger("click");
-			
-			//var ans = '{"cyclomatic":{"HalsteadKeys":[{"Cyclomatic Complexity":1,"Risk Level":"Low risk program","Method Name":"public HalsteadKeys (String, HashMap<String, Integer>, HashMap<String, Integer>, int, int, int, int)"},{"Cyclomatic Complexity":1,"Risk Level":"Low risk program","Method Name":"public String getClassName ()"},{"Cyclomatic Complexity":1,"Risk Level":"Low risk program","Method Name":"public HashMap<String, Integer> getOperators ()"},{"Cyclomatic Complexity":1,"Risk Level":"Low risk program","Method Name":"public HashMap<String, Integer> getOperands ()"},{"Cyclomatic Complexity":1,"Risk Level":"Low risk program","Method Name":"public int getN1 ()"},{"Cyclomatic Complexity":1,"Risk Level":"Low risk program","Method Name":"public int getN2 ()"},{"Cyclomatic Complexity":1,"Risk Level":"Low risk program","Method Name":"public int getn1 ()"},{"Cyclomatic Complexity":1,"Risk Level":"Low risk program","Method Name":"public int getn2 ()"}],"Halstead":[{"Cyclomatic Complexity":20,"Risk Level":"Moderate risk","Method Name":"public Halstead ()"},{"Cyclomatic Complexity":4,"Risk Level":"Low risk program","Method Name":"public void getname (String)"},{"Cyclomatic Complexity":60,"Risk Level":"Most complex and highly unstable method","Method Name":"public void readLine (String)"},{"Cyclomatic Complexity":7,"Risk Level":"Low risk program","Method Name":"public JSONObject getValue ()"},{"Cyclomatic Complexity":2,"Risk Level":"Low risk program","Method Name":"public static double log2 (int)"}]}}';
-			//var obj = $.parseJSON(ans);
-
 			$(".dropArea").on('dragenter', anim_start).on('dragleave', anim_stop).on('dragover', function(event){
 				event.preventDefault();
 				event.stopPropagation();
@@ -424,7 +421,8 @@
 			$(".circle").css("height", circle_height);
 			$(".circle").css("left", $(".dropArea").offset().left + $(".dropArea").width() / 2 - circle_width / 2);
 			$(".circle").css("top", $(".dropArea").offset().top + $(".dropArea").height() / 2 - circle_height / 1.5);
-			
+			$(".circle").css("display", "inline-block");
+
 			var formData = new FormData(form);
 			$.ajax({
 				type: "POST",
@@ -435,7 +433,6 @@
 				dataType: "jsonp",
 				data: formData,
 				success: function(res) {
-
 					res.forEach(function(resFile, index) {
 
 						if(Boolean(resFile["exterror"])) { 
@@ -454,7 +451,6 @@
 						}
 
 						if(index == res.length - 1) {
-							$(".circle").css("display", "inline-block");
 							deferred.done(function() {
 								$(".anim_mask").delay(600).animate({
 									"opacity": 0
@@ -540,7 +536,7 @@
 			}
 		}
 		
-		//stretch looping
+		// stretch looping
 		function anim_loop(obj) {
 			if(obj.hasClass("animating")) {
 				obj.animate({
@@ -587,7 +583,7 @@
 			}
 		}
 		
-		//stop animation when dragging leave
+		// stop animation when dragging leave
 		function anim_stop() {
 			anim_counter--;
 			if(anim_counter === 0) {
@@ -612,7 +608,7 @@
 			}
 		}
 		
-		//active svg anim
+		// active svg anim
 		function animChecksvg(isSuccess) {
 			if(isSuccess) {
 				$(".checkmark").css("display", "block");

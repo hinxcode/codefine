@@ -34,7 +34,7 @@ function getMetricsHelp(item) {
 
     if(item == 3) {
         html = '<h4>循環複雜度（Cyclomatic Complexity）</h4>' +
-            '<p><div class="green_block"></div>低風險</p><p><div class="yellow_block"></div>適當風險</p><p><div class="orange_block"></div>高風險</p><p><div class="red_block"></div>極度不穩定</p>' +
+            '<p><div class="green_block"></div>低風險 0 - 10</p><p><div class="yellow_block"></div>適當風險 11 - 20</p><p><div class="orange_block"></div>高風險 21 - 50</p><p><div class="red_block"></div>極度不穩定 50 以上</p>' +
             '<p><br/>循環複雜度又稱為迴圈複雜度或圈複雜度，主要是用來描述一個程式「條件分支」的複雜度，因為愈單純的 If-condition 愈容易讀懂，除錯時也較好發現問題，所以複雜度的數值，愈低愈好。因此當程式碼遇到以下保留字時，複雜度的值都會加一：「if、for、while、case、default、continue、&&、||、&、|」</p>';
     } else if(item == 2) {                    
         html = '<h4>霍爾斯特德複雜度（Halstead Complexity）</h4>' +
@@ -54,10 +54,12 @@ function getMetricsHelp(item) {
         html = '<h4>程式碼行數（Source Lines of Code）</h4>' +
             '<p>簡稱SLOC又稱LOC。此軟體度量藉由計算程式碼的行數來衡量電腦程式的大小。當一個程式被要求開發時，SLOC常用於預測其工作量；而程式開始生產時將會拿來測量其生產量及維護性。</p>' +
             '<p>以下片段程式碼為例：</p>' +
+            '<p><img src="images/sloc.jpg" style="width:500px;height:80px;"/></p>' +
             '<p>從以上程式碼將測出<br/>1 Physical Line of Code (LOC)<br/>2 Logical Lines of Code (LLOC)  (for statement and printf statement)<br/>1 Comment Line<br/><br/></p>' +
             '<h4>註解密度（Density of Comments）</h4>' +
             '<p>輔以註解的說明可以讓別人對於程式的內容更有效的了解。程式註解密度(DC)為註解行數(CLOC)和全部行數(LOC)之比率，因此，註解密度DC = CLOC / LOC。註解密度的值介於0～1之間，可將此列為品質的指標，密度越接近1代表程式碼品質越好。</p>' +
             '<p>以下片段程式碼為例：</p>' +
+            '<p><img src="images/dc.jpg" style="width:500px;height:320px;"/></p>' +
             '<p>以上程式碼LOC為12；CLOC(綠色字)為 4<br/>DC = 4 / 12 ≒ 0.33</p>';
     }
 
@@ -98,35 +100,62 @@ function updateResult(res, data) {
     $("#area_metrics").html('<div class="area_title"><p class="panel_title">度量指標</p><p class="panel_subtitle">Metrics</p></div>');
 
     if(data.level == 1) {
-        var data = [];
-        var rate;
-        var suggestion;
+        var chart_data = [];
+        var score = 100;
+        var rate = "";
+        var suggestion = "";
         res.forEach(function(v, i) {
             var cls_count = 0;
-            var cls_value = 0;
+            var cls_value = 0; // cc
+            var cls_value2 = 0; // difficulty
+            var cls_value3 = 0; // volume
+            var cls_value4 = 0; // time
+
+            $.parseJSON(v["result"])["halstead"].forEach(function(cls, ii) {
+                cls_value2 += cls["values"]["difficulty"];
+                cls_value3 += cls["values"]["volume"];
+                cls_value4 += cls["values"]["time"];
+            });
             $.parseJSON(v["result"])["cyclomatic"].forEach(function(cls, ii) {
                 var m_count = 0;
                 var m_value = 0;
                 cls_count++;
                 cls["values"].forEach(function(m, iii) {
                     m_count++;
-                    m_value     += m["cc"];
+                    m_value += m["cc"];
                 });
                 cls_value += m_value / m_count;
             });
-            data.push({f_name: v["filename"], cc_avg: cls_value / cls_count});
+            chart_data.push({f_name: v["filename"], cc_avg: cls_value / cls_count});
             if(i == data.i) {
                 var lvl_v = cls_value / cls_count;
-                if(lvl_v <= 10) {
-                    rate = "良好";
-                    suggestion = '<p class="fullBrick_sug">註解密度偏低1</p><p class="fullBrick_sug">循環複雜度過高</p>';
-                } else if (lvl_v <= 30) {
-                    rate = "尚可";
-                    suggestion = '<p class="fullBrick_sug">註解密度偏低2</p><p class="fullBrick_sug">循環複雜度過高</p>';
-                } else {
-                    rate = "低劣";
-                    suggestion = '<p class="fullBrick_sug">註解密度偏低3</p><p class="fullBrick_sug">循環複雜度過高</p>';
+                var lvl_d = cls_value2 / cls_count;
+                var lvl_volume = cls_value3 / cls_count;
+                var lvl_time = cls_value4 / cls_count;
+
+                score -= lvl_volume * 0.004;
+                if(lvl_volume >= 7000) {
+                    suggestion += '<p class="fullBrick_sug">＊過多重複的運算子及運算元可能導致您的程式碼產生邏輯錯誤。</p>';
                 }
+                score -= lvl_time * 0.0001;
+                if(lvl_time >= 250000) {
+                    suggestion += '<p class="fullBrick_sug">＊類別平均估計開發時間過高，建議您進行程式碼的重構，以減少日後維護的成本。</p>';
+                } else if(lvl_time >= 100000) {
+                    suggestion += '<p class="fullBrick_sug">＊類別平均估計開發時間偏高，建議您減少重複出現的運算子、運算元，並將程式中的邏輯部分抽象化。</p>';
+                }
+                score -= lvl_v * 0.5;
+                if (lvl_v >= 50) {
+                    suggestion += '<p class="fullBrick_sug">＊循環複雜度極高，強烈建議您減少程式的分支程度以降低錯誤風險。</p>';
+                } else if (lvl_v >= 31) {
+                    suggestion += '<p class="fullBrick_sug">＊循環複雜度偏高，建議您減少程式的分支程度以降低錯誤風險。</p>';
+                }
+
+                if(score / lvl_d > 0.075)
+                    rate = "良好";
+                else if(score / lvl_d > 0.03)
+                    rate = "尚可";
+                else
+                    rate = "低劣";
             }
         });
 
@@ -152,13 +181,13 @@ function updateResult(res, data) {
         });
 
         var settings = {
-            title: "程式碼品質比較圖",
+            title: "各檔案之程式碼複雜度比較圖",
             description: "",
             showLegend: true,
             enableAnimations: true,
             padding: { left: 30, top: 5, right: 30, bottom: 30 },
             titlePadding: { left: 0, top: 15, right: 0, bottom: 15 },
-            source: data,
+            source: chart_data,
             xAxis:
             {
                 dataField: 'f_name',
@@ -182,7 +211,7 @@ function updateResult(res, data) {
                         columnsGapPercent: 50,
                         toolTipFormatSettings: { thousandsSeparator: ',' },
                         series: [
-                            { dataField: 'cc_avg', displayText: '平均循環複雜度' }
+                            { dataField: 'cc_avg', displayText: '平均複雜度' }
                         ]
                     }
                 ]
@@ -345,7 +374,7 @@ $(".bar_btn").click(function() {
     $(".result_area").prepend('<div class="indicator"></div>');
     $(".indicator").css("margin-top", 0).css("left", $(this).position().left);
     $(".indicator").animate({
-        "marginTop": -50
+        "marginTop": -50 - $(window).height() * 0.01
     }, "300", "easeOutCirc");
 });
 
