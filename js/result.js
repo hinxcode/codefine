@@ -98,12 +98,44 @@ function updateResult(res, data) {
     $("#area_metrics").html('<div class="area_title"><p class="panel_title">度量指標</p><p class="panel_subtitle">Metrics</p></div>');
 
     if(data.level == 1) {
+        var data = [];
+        var rate;
+        var suggestion;
+        res.forEach(function(v, i) {
+            var cls_count = 0;
+            var cls_value = 0;
+            $.parseJSON(v["result"])["cyclomatic"].forEach(function(cls, ii) {
+                var m_count = 0;
+                var m_value = 0;
+                cls_count++;
+                cls["values"].forEach(function(m, iii) {
+                    m_count++;
+                    m_value     += m["cc"];
+                });
+                cls_value += m_value / m_count;
+            });
+            data.push({f_name: v["filename"], cc_avg: cls_value / cls_count});
+            if(i == data.i) {
+                var lvl_v = cls_value / cls_count;
+                if(lvl_v <= 10) {
+                    rate = "良好";
+                    suggestion = '<p class="fullBrick_sug">註解密度偏低1</p><p class="fullBrick_sug">循環複雜度過高</p>';
+                } else if (lvl_v <= 30) {
+                    rate = "尚可";
+                    suggestion = '<p class="fullBrick_sug">註解密度偏低2</p><p class="fullBrick_sug">循環複雜度過高</p>';
+                } else {
+                    rate = "低劣";
+                    suggestion = '<p class="fullBrick_sug">註解密度偏低3</p><p class="fullBrick_sug">循環複雜度過高</p>';
+                }
+            }
+        });
+
         var dc = $.parseJSON(res[data.i]["result"])["dc"]["dcp"];
         var cloc = $.parseJSON(res[data.i]["result"])["dc"]["cloc"];
         var loc = $.parseJSON(res[data.i]["result"])["dc"]["loc"];
         var f_name = res[data.i]["filename"];
-
-        $("#area_chart").append('<div class="fullBrick"><div class="fullBrick_left"><div style="font-size:13pt;">品質</div><div style="font-size:30pt;line-height:165px;text-align:center;">尚可</div></div><div class="fullBrick_right"><p class="fullBrick_filename">' + f_name + '</p><p class="fullBrick_sug">註解密度偏低</p><p class="fullBrick_sug">循環複雜度過高</p></div></div>');
+        
+        $("#area_chart").append('<div class="fullBrick"><div class="fullBrick_left"><div style="font-size:13pt;">品質</div><div style="font-size:30pt;line-height:165px;text-align:center;">' + rate + '</div></div><div class="fullBrick_right"><p class="fullBrick_filename">' + f_name + '</p>' + suggestion + '</div></div>');
         $("#area_chart").append('<div class="vBrick_small blue3_brick"><div class="brick_left"></div><div class="data_counter">JAVA</div><div class="brick_title">語言</div><div class="brick_subtitle">Language</div></div>');
         $("#area_chart").append('<div class="vBrick blue_brick"><div class="brick_left"></div><div id="counter_sloc" class="data_counter"></div><div class="brick_title">程式碼行數</div><div class="brick_subtitle">Physical Line</div></div>');
         $("#area_chart").append('<div class="vBrick blue2_brick"><div class="brick_left"></div><div id="counter_dc" class="data_counter"></div><div class="brick_title">註解密度</div><div class="brick_subtitle">DC = CLOC / LOC</div></div>');
@@ -117,23 +149,6 @@ function updateResult(res, data) {
         $('#counter_dc').jQuerySimpleCounter({
             end: dc * 100,
             unit: "<span style='font-size:10pt'>%</span>"
-        });
-
-        var data = [];
-        res.forEach(function(v) {
-            var cls_count = 0;
-            var cls_value = 0;
-            $.parseJSON(v["result"])["cyclomatic"].forEach(function(cls, ii) {
-                var m_count = 0;
-                var m_value = 0;
-                cls_count++;
-                cls["values"].forEach(function(m, iii) {
-                    m_count++;
-                    m_value += m["cc"];
-                });
-                cls_value += m_value / m_count;
-            });
-            data.push({f_name: v["filename"], cc_avg: cls_value / cls_count});
         });
 
         var settings = {
@@ -190,12 +205,12 @@ function updateResult(res, data) {
         var bugs = $.parseJSON(res[data.i]["result"])["halstead"][data.ii]["values"]["bugs"];
         var c_name = $.parseJSON(res[data.i]["result"])["halstead"][data.ii]["class_name"];
 
-        $("#area_chart").append('<div class="vBrick blue_brick"><div class="brick_left"></div><div id="counter_calculated" class="data_counter"></div><div class="brick_title">計算程式長度</div><div class="brick_subtitle">Calculated Program Length</div></div>');
-        $("#area_chart").append('<div class="vBrick blue2_brick"><div class="brick_left"></div><div id="counter_volume" class="data_counter"></div><div class="brick_title">程式容量</div><div class="brick_subtitle">Volume</div></div>');
-        $("#area_chart").append('<div class="vBrick_small blue2_brick"><div class="brick_left"></div><div id="counter_difficulty" class="data_counter"></div><div class="brick_title">難度</div><div class="brick_subtitle">Difficulty</div></div>');
+        $("#area_chart").append('<div class="vBrick blue2_brick"><div class="brick_left"></div><div id="counter_calculated" class="data_counter"></div><div class="brick_title">計算程式長度</div><div class="brick_subtitle">Calculated Program Length</div></div>');
+        $("#area_chart").append('<div class="vBrick blue_brick"><div class="brick_left"></div><div id="counter_volume" class="data_counter"></div><div class="brick_title">程式容量</div><div class="brick_subtitle">Volume</div></div>');
+        $("#area_chart").append('<div class="vBrick_small blue3_brick"><div class="brick_left"></div><div id="counter_difficulty" class="data_counter"></div><div class="brick_title">難度</div><div class="brick_subtitle">Difficulty</div></div>');
         $("#area_chart").append('<div class="vBrick blue2_brick"><div class="brick_left"></div><div id="counter_effort" class="data_counter"></div><div class="brick_title">耗費精力</div><div class="brick_subtitle">Effort</div></div>');
-        $("#area_chart").append('<div class="vBrick blue2_brick"><div class="brick_left"></div><div id="counter_time" class="data_counter"></div><div class="brick_title">撰寫時間</div><div class="brick_subtitle">Time required to program</div></div>');
-        $("#area_chart").append('<div class="vBrick_small blue2_brick"><div class="brick_left"></div><div id="counter_bugs" class="data_counter"></div><div class="brick_title">預估錯誤</div><div class="brick_subtitle">Delivered bugs</div></div>');
+        $("#area_chart").append('<div class="vBrick blue_brick"><div class="brick_left"></div><div id="counter_time" class="data_counter"></div><div class="brick_title">撰寫時間</div><div class="brick_subtitle">Time required to program</div></div>');
+        $("#area_chart").append('<div class="vBrick_small blue3_brick"><div class="brick_left"></div><div id="counter_bugs" class="data_counter"></div><div class="brick_title">預估錯誤</div><div class="brick_subtitle">Delivered bugs</div></div>');
         $("#area_chart").append('<div class="gBrick"><div class="gBrick_bar">相異運算子的個數</div><div class="gBrick_data"><p class="gBrick_help">n1 = the number of distinct operators</p><div id="counter_n1" class="data_counter2"></div></div></div>');
         $("#area_chart").append('<div class="gBrick"><div class="gBrick_bar">相異運算元的個數</div><div class="gBrick_data"><p class="gBrick_help">n2 = the number of distinct operands</p><div id="counter_n2" class="data_counter2"></div></div></div>');
         $("#area_chart").append('<div class="gBrick"><div class="gBrick_bar2">程式詞彙數</div><div class="gBrick_data" style="text-align:center"><canvas id="vocabulary_doughnut" width="135" height="135"></canvas><div id="counter_vocabulary" class="doughnut_value">' + vocabulary + '</div></div></div>');
@@ -330,7 +345,7 @@ $(".bar_btn").click(function() {
     $(".result_area").prepend('<div class="indicator"></div>');
     $(".indicator").css("margin-top", 0).css("left", $(this).position().left);
     $(".indicator").animate({
-        "marginTop": -55
+        "marginTop": -50
     }, "300", "easeOutCirc");
 });
 

@@ -435,7 +435,7 @@
 				dataType: "jsonp",
 				data: formData,
 				success: function(res) {
-					
+
 					res.forEach(function(resFile, index) {
 
 						if(Boolean(resFile["exterror"])) { 
@@ -496,8 +496,8 @@
 										    	updateResult(res, data);
 										    },
 										});
+										$(".list-group-item").first().trigger("click");
 									});
-									$(".list-group-item").first().trigger("click");
 								});
 							});
 						}
