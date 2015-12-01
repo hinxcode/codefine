@@ -4,9 +4,9 @@
 }
 .tree_area {
 	border-radius: 15px;
-	background-color: #FFF;
-	padding: 2%;
-	width: 30%;
+	background-color: rgb(250, 250, 250);
+	padding: 1%;
+	width: 25%;
 	margin-left: 7%;
 	margin-right: 2%;
 	overflow-y: auto;
@@ -17,10 +17,10 @@
 }
 .result_area {
 	border-radius: 15px;
-	background-color: #FFF;
+	background-color: rgb(250, 250, 250);
 	padding: 2%;
 	margin-right: 7%;
-	width: 54%;
+	width: 59%;
 	overflow-y: auto;
 	float: left;
 	-webkit-box-sizing: border-box;
@@ -29,19 +29,21 @@
 }
 .panel_title {
 	color: #363636;
-	font-size: 26pt;
+	font-size: 20pt;
 	font-weight: 300;
-	margin: 0 0 5px 0;
+	display: inline;
 }
 .panel_subtitle {
-	color: #AAA;
+	color: #888;
 	font-size: 16pt;
 	font-weight: 100;
-	margin: 0;
-	font-family: "Helvetica Neue", Helvetica, Arial;
+	display: inline;
+	margin-left: 5px;
+	letter-spacing: 1px;
 }
 .panel {
-	display: none
+	display: none;
+	background-color: rgb(250, 250, 250);
 }
 .menubar {
 	text-align: right;
