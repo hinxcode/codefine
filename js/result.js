@@ -152,6 +152,7 @@ function updateResult(res, data) {
 
                 if(score / lvl_d > 0.075)
                     rate = "良好";
+                    suggestion += '<p class="fullBrick_sug">＊提高類別的內聚力與降低其耦合度有助於提升程式品質。</p>';
                 else if(score / lvl_d > 0.03)
                     rate = "尚可";
                 else
