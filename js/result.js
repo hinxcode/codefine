@@ -150,13 +150,14 @@ function updateResult(res, data) {
                     suggestion += '<p class="fullBrick_sug">＊循環複雜度偏高，建議您減少程式的分支程度以降低錯誤風險。</p>';
                 }
 
-                if(score / lvl_d > 0.075)
+                if(score / lvl_d > 0.075) {
                     rate = "良好";
                     suggestion += '<p class="fullBrick_sug">＊提高類別的內聚力與降低其耦合度有助於提升程式品質。</p>';
-                else if(score / lvl_d > 0.03)
+                } else if(score / lvl_d > 0.03) {
                     rate = "尚可";
-                else
+                } else {
                     rate = "低劣";
+                }
             }
         });
 
