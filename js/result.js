@@ -135,7 +135,7 @@ function updateResult(res, data) {
 
                 score -= lvl_volume * 0.004;
                 if(lvl_volume >= 7000) {
-                    suggestion += '<p class="fullBrick_sug">＊過多重複的運算子及運算元可能導致您的程式碼產生邏輯錯誤。</p>';
+                    suggestion += '<p class="fullBrick_sug">＊過多重複的運算子及運算元可能導致程式碼產生邏輯錯誤。</p>';
                 }
                 score -= lvl_time * 0.0001;
                 if(lvl_time >= 250000) {
