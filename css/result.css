@@ -65,3 +65,246 @@
 	background: url("../images/ic_arrowup.png");
 	background-size: 32px 32px;
 }
+#gaugeContainer {
+	margin: 0 auto;
+}
+.gaugeFrame {
+	position: relative;
+}
+.gaugeValue {
+    position: absolute;
+    top: 65%;
+    left: 39%;
+    text-align: center;
+    font-weight: bold;
+    font-size: 16pt;
+    width: 21%;
+    color: rgba(44, 83, 138, 0.9);
+}
+.green_block {
+	width: 30px;
+	height: 30px;
+	background-color: rgb(75,182,72);
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 10px;
+}
+.yellow_block {
+	width: 30px;
+	height: 30px;
+	background-color: rgb(251,209,9);
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 10px;
+}
+.orange_block {
+	width: 30px;
+	height: 30px;
+	background-color: rgb(255,188,0);
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 10px;
+}
+.red_block {
+	width: 30px;
+	height: 30px;
+	background-color: rgb(224,38,31);
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 10px;		    	
+}
+.vBrick {
+	width: 230px;
+	height: 140px;
+	padding: 5px;
+	color: #FFF;
+	box-shadow: 1px 3px 5px #BBB;
+	margin: 0 10px 10px 10px;
+	float: left;
+}
+.vBrick_small {
+	width: 150px;
+	height: 140px;
+	padding: 5px;
+	color: #FFF;
+	box-shadow: 1px 3px 5px #BBB;
+	margin: 0 10px 10px 10px;
+	float: left;
+}
+.green_brick {
+	background-color: rgba(71, 190, 65, 0.9);
+}
+.gray_brick {
+	background-color: rgba(200, 200, 200, 0.9);
+}
+.blue_brick {
+	background-color: rgba(67, 113, 183, 0.9);
+}
+.blue2_brick {
+	background-color: rgba(44, 83, 138, 0.9);
+}
+.blue3_brick {
+	background-color: #37589E;
+}
+	.red_brick {
+	background-color: rgba(225, 47, 65, 0.9);
+}
+	.data_counter {
+	font-size: 20pt;
+	font-weight: bold;
+	letter-spacing: 2px;
+	color: #FFF;
+	display: inline-block;
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+.data_counter2 {
+	font-size: 25pt;
+	font-weight: bold;
+	letter-spacing: 2px;
+	text-align: right;
+}
+.gBrick {
+	width: 200px;
+	height: 210px;
+	box-shadow: 1px 3px 5px #BBB;
+	float: left;
+	margin: 10px;
+	background-color: #FFF;
+}
+.gBrick .gBrick_bar {
+	height: 80px;
+	line-height: 80px;
+	font-size: 14pt;
+	letter-spacing: 1px;
+	padding-left: 10px;
+	margin-bottom: 20px;
+	background-color: #2C69A0;
+	color: #FFF;
+}
+.gBrick .gBrick_bar2 {
+	height: 45px;
+	line-height: 45px;
+	font-size: 14pt;
+	letter-spacing: 1px;
+	padding-left: 10px;
+	margin-bottom: 20px;
+	background-color: #2C69A0;
+	color: #FFF;
+}
+.gBrick .gBrick_data {
+	padding: 0 10px 10px 10px;
+	color: #2C69A0;
+}
+.gBrick_data .doughnut_value {
+	margin-top: -50%;
+	font-size: 180%;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+}
+.gBrick_data .gBrick_help {
+	font-size: 13pt;
+	line-height: 20px;
+}
+.vBrick .brick_left {
+	width: 40px;
+	height: 95px;
+	margin-top: 10px;
+	margin-right: 10px;
+	border-right: 2px solid #FFF;
+	float: left;
+}
+.vBrick_small .brick_left {
+	width: 25px;
+	height: 95px;
+	margin-top: 10px;
+	margin-right: 10px;
+	border-right: 2px solid #FFF;
+	float: left;
+}
+.brick_title {
+	font-size: 15pt;
+}
+.brick_subtitle {
+	font-size: 10.5pt;
+}
+.area_title {
+	margin-bottom: 20px;
+}
+.fullBrick {
+	width: 650px;
+	/*height: 220px;*/
+	margin-bottom: 15px;
+	box-shadow: 1px 3px 5px #BBB;
+	margin-left: 10px;
+}
+.fullBrick_left {
+	width: 23%;
+	height: 100%;
+	float: left;
+	color: #FFF;
+	background-color: rgba(26, 102, 162, 0.9);
+	padding: 5px;
+}
+.fullBrick_right {
+	width: 77%;
+	height: 100%;
+	float: left;
+	line-height: 30px;
+	background-color: #FFF;
+	padding: 20px 10px;
+}
+.fullBrick_right .fullBrick_filename {
+	font-size: 11pt;
+	color: #777;
+	margin-bottom: 10px;
+}
+.fullBrick_right .fullBrick_sug {
+	font-size: 12pt;
+	color: #2C69A0;
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+.gauge_brick {
+	width: 400px;
+	height: 380px;
+	overflow-y: hidden;
+	box-shadow: 1px 3px 5px #BBB;
+	background-color: #FFF;
+	margin-left: 10px;
+	margin-bottom: 10px;
+	font-size: 11pt;
+	color: #555;
+	float: left;
+}
+	.gauge_brick .gauge_brick_bar {
+	width: 100%;
+	height: 60px;
+	line-height: 60px;
+	font-size: 15pt;
+	letter-spacing: 1px;
+	padding-left: 10px;
+	margin-bottom: 20px;
+	margin-right: 20px;
+	background-color: rgba(67, 113, 183, 0.9);
+	color: #FFF;
+}
+	.gauge_legend_brick {
+	width: 200px;
+	overflow-y: hidden;
+	margin-top: 200px;
+	margin-left: 10px;
+	margin-bottom: 10px;
+	font-size: 11pt;
+	color: #777;
+	float: left;
+	padding-left: 20px;
+}
+.jqx-chart-title-text {
+	font-size: 16pt;
+	fill: rgba(44, 83, 138, 0.9);
+}
+.jqx-chart-legend-text {
+	font-size: 13pt;
+}

@@ -54,7 +54,7 @@ function getMetricsHelp(item) {
         html = '<h4>程式碼行數（Source Lines of Code）</h4>' +
             '<p>簡稱SLOC又稱LOC。此軟體度量藉由計算程式碼的行數來衡量電腦程式的大小。當一個程式被要求開發時，SLOC常用於預測其工作量；而程式開始生產時將會拿來測量其生產量及維護性。</p>' +
             '<p>以下片段程式碼為例：</p>' +
-            '<p><img src="images/sloc.jpg" style="width:500px;height:80px;"/></p>' +
+            '<pre><code class="java">public class Foo {<br/>public static void main() { } }</code></pre>' +
             '<p>從以上程式碼將測出<br/>1 Physical Line of Code (LOC)<br/>2 Logical Lines of Code (LLOC)  (for statement and printf statement)<br/>1 Comment Line<br/><br/></p>' +
             '<h4>註解密度（Density of Comments）</h4>' +
             '<p>輔以註解的說明可以讓別人對於程式的內容更有效的了解。程式註解密度(DC)為註解行數(CLOC)和全部行數(LOC)之比率，因此，註解密度DC = CLOC / LOC。註解密度的值介於0～1之間，可將此列為品質的指標，密度越接近1代表程式碼品質越好。</p>' +
@@ -101,7 +101,7 @@ function updateResult(res, data) {
 
     if(data.level == 1) {
         var chart_data = [];
-        var score = 100;
+        var score = 255;
         var rate = "";
         var suggestion = "";
         res.forEach(function(v, i) {
@@ -124,54 +124,79 @@ function updateResult(res, data) {
                     m_count++;
                     m_value += m["cc"];
                 });
+                if(m_count == 0) m_count = 1;
                 cls_value += m_value / m_count;
             });
             chart_data.push({f_name: v["filename"], cc_avg: cls_value / cls_count});
-            if(i == data.i) {
+            if(i == data.i && cls_count >= 1) {
                 var lvl_v = cls_value / cls_count;
                 var lvl_d = cls_value2 / cls_count;
                 var lvl_volume = cls_value3 / cls_count;
                 var lvl_time = cls_value4 / cls_count;
 
-                score -= lvl_volume * 0.004;
-                if(lvl_volume >= 7000) {
+                score -= lvl_volume * 0.015;
+                if(lvl_volume >= 5000) {
                     suggestion += '<p class="fullBrick_sug">＊過多重複的運算子及運算元可能導致程式碼產生邏輯錯誤。</p>';
                 }
-                score -= lvl_time * 0.0001;
-                if(lvl_time >= 250000) {
+
+                score -= lvl_time * 0.002;
+                if(lvl_time >= 50000) {
                     suggestion += '<p class="fullBrick_sug">＊類別平均估計開發時間過高，建議您進行程式碼的重構，以減少日後維護的成本。</p>';
                 } else if(lvl_time >= 100000) {
                     suggestion += '<p class="fullBrick_sug">＊類別平均估計開發時間偏高，建議您減少重複出現的運算子、運算元，並將程式中的邏輯部分抽象化。</p>';
                 }
-                score -= lvl_v * 0.5;
+
+                score -= lvl_v * 10;
                 if (lvl_v >= 50) {
                     suggestion += '<p class="fullBrick_sug">＊循環複雜度極高，強烈建議您減少程式的分支程度以降低錯誤風險。</p>';
                 } else if (lvl_v >= 31) {
                     suggestion += '<p class="fullBrick_sug">＊循環複雜度偏高，建議您減少程式的分支程度以降低錯誤風險。</p>';
                 }
 
-                if(score / lvl_d > 0.075) {
-                    rate = "良好";
-                    suggestion += '<p class="fullBrick_sug">＊提高類別的內聚力與降低其耦合度有助於提升程式品質。</p>';
-                } else if(score / lvl_d > 0.03) {
-                    rate = "尚可";
-                } else {
-                    rate = "低劣";
+                score -= lvl_d * 0.3;
+                if (lvl_d >= 200) {
+                    suggestion += '<p class="fullBrick_sug">＊出現過多重複的運算子及運算元，建議進行Refactoring以提升程式品質。</p>';
+                } else if (lvl_d >= 100) {
+                    suggestion += '<p class="fullBrick_sug">＊建議減少重複的運算子及運算元以提升程式品質</p>';
                 }
             }
         });
-
+    
         var dc = $.parseJSON(res[data.i]["result"])["dc"]["dcp"];
         var cloc = $.parseJSON(res[data.i]["result"])["dc"]["cloc"];
         var loc = $.parseJSON(res[data.i]["result"])["dc"]["loc"];
         var f_name = res[data.i]["filename"];
         
-        $("#area_chart").append('<div class="fullBrick"><div class="fullBrick_left"><div style="font-size:13pt;">品質</div><div style="font-size:30pt;line-height:165px;text-align:center;">' + rate + '</div></div><div class="fullBrick_right"><p class="fullBrick_filename">' + f_name + '</p>' + suggestion + '</div></div>');
+        if (dc > 0.4) {
+            suggestion += '<p class="fullBrick_sug">＊建議註解密度應介於 20% 與 40% 之間。</p>';
+            score -= (dc - 0.4) * 50;
+        } else if (dc < 0.2) {
+            suggestion += '<p class="fullBrick_sug">＊建議註解密度應介於 20% 與 40% 之間。</p>';
+            score -= (0.2 - dc) * 250;
+        }
+
+        if(score > 210) {
+            rate = "優良";
+        } else if(score > 130) {
+            rate = "良好";
+        } else if(score > 0) {
+            rate = "尚可";
+        } else {
+            rate = "待加強";
+        }
+        $("#area_chart").append('<div class="fullBrick"><div class="fullBrick_left"><div style="font-size:13pt;">品質</div><div class="rateblock" style="font-size:30pt;text-align:center;">' + rate + '</div></div><div class="fullBrick_right"><p class="fullBrick_filename">最大值：255<br/>換算分數：' + score.toFixed(4) + '<br/>優良：210以上 ｜ 良好：130 至 210 ｜ 尚可：0 至 130 ｜ 待加強：0以下</p>' + suggestion + '</div><div class="clean"></div></div>');
         $("#area_chart").append('<div class="vBrick_small blue3_brick"><div class="brick_left"></div><div class="data_counter">JAVA</div><div class="brick_title">語言</div><div class="brick_subtitle">Language</div></div>');
         $("#area_chart").append('<div class="vBrick blue_brick"><div class="brick_left"></div><div id="counter_sloc" class="data_counter"></div><div class="brick_title">程式碼行數</div><div class="brick_subtitle">Physical Line</div></div>');
         $("#area_chart").append('<div class="vBrick blue2_brick"><div class="brick_left"></div><div id="counter_dc" class="data_counter"></div><div class="brick_title">註解密度</div><div class="brick_subtitle">DC = CLOC / LOC</div></div>');
         $("#area_chart").append('<div class="clean"></div>');
         $("#area_chart").append('<div id="chartContainer" style="margin-top: 20px; margin-left:10px; width:650px; height:500px;"></div>');
+
+        if($(".fullBrick").children(".fullBrick_left").height() > $(".fullBrick").children(".fullBrick_right").height() + 30) {
+            $(".fullBrick").children(".fullBrick_right").height($(".fullBrick").children(".fullBrick_left").height() - 30);
+        } else {
+            $(".fullBrick").children(".fullBrick_left").height($(".fullBrick").children(".fullBrick_right").height() + 30);
+        }
+        $(".fullBrick").children(".fullBrick_left").children(".rateblock").css("line-height", ($(".fullBrick").children(".fullBrick_left").height() - 30) + "px");
 
         $('#counter_sloc').jQuerySimpleCounter({
             end: loc,
@@ -381,9 +406,7 @@ $(".bar_btn").click(function() {
 });
 
 // 圖表分析
-$("#bar_btn_chart").click(function() {
-
-});
+//("#bar_btn_chart").click(function() {});
 
 // 分析報告
 $("#bar_btn_report").click(function() {
@@ -409,6 +432,4 @@ $("#bar_btn_report").click(function() {
 });
 
 // 度量指標
-$("#bar_btn_metrics").click(function() {
-
-});
+//$("#bar_btn_metrics").click(function() { });
